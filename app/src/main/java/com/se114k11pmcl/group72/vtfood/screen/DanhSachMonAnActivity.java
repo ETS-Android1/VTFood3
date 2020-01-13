@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -18,15 +19,17 @@ import com.se114k11pmcl.group72.vtfood.KEY;
 import com.se114k11pmcl.group72.vtfood.R;
 import com.se114k11pmcl.group72.vtfood.adapter.DanhSachMonAnAdapter;
 import com.se114k11pmcl.group72.vtfood.api.ApiGetDataFromTableRun;
+import com.se114k11pmcl.group72.vtfood.api.ApiRunSQL;
 import com.se114k11pmcl.group72.vtfood.api.GetDataFromTable;
 import com.se114k11pmcl.group72.vtfood.dialog.AddOptionDialog;
 import com.se114k11pmcl.group72.vtfood.dialog.AddTableDialog;
+import com.se114k11pmcl.group72.vtfood.dialog.FoodOptionDialog;
 import com.se114k11pmcl.group72.vtfood.object.MonAn;
 import com.se114k11pmcl.group72.vtfood.tool.Convert;
 
 import java.util.ArrayList;
 
-public class DanhSachMonAnActivity extends AppCompatActivity implements ApiGetDataFromTableRun {
+public class DanhSachMonAnActivity extends AppCompatActivity implements ApiGetDataFromTableRun, ApiRunSQL {
     Convert convert = new Convert();
     DanhSachMonAnAdapter danhSachMonAnAdapter;
     ListView lsvDSMonAn;
@@ -37,6 +40,9 @@ public class DanhSachMonAnActivity extends AppCompatActivity implements ApiGetDa
     TextView txvGT_All,txvGT_Discounts,txvGT_Specials;
     TextView arrTxvGT[];
     int chonGTdeal = 0; /// 0 : all ; 1 : Discounts ; 2 : Specials
+
+    int thucHienCauLenh = 0; //0 : thực hiện câu lệnh thêm bàn ; ; 1 : thức hiện câu lệnh xóa món ăn ;;
+
     protected void onCreate(Bundle saveInstanceState){
         super.onCreate(saveInstanceState);
         setContentView(R.layout.activity_order);
@@ -114,6 +120,12 @@ public class DanhSachMonAnActivity extends AppCompatActivity implements ApiGetDa
                 chonGTdeal = 2;
                 setUpGT();
                 Testing();
+            }
+        });
+        lsvDSMonAn.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long id) {
+                new FoodOptionDialog(DanhSachMonAnActivity.this,danhSachMonAnAdapter.myArr.get(i)).show();
             }
         });
     }
@@ -196,6 +208,20 @@ public void setUpGT(){
     }
 
     public static int ID_THEM_MON_AN = 99;
+    public static int ID_SUA_MON_AN = 100;
+
+    @Override
+    public void batDauChayCauSQL() {
+
+    }
+
+    @Override
+    public void ketThuc() {
+        if ( thucHienCauLenh == 0 ) {
+            Toast.makeText(this, "Thêm bàn thành công !", Toast.LENGTH_SHORT).show();
+        }
+    }
+
     @Override
     public void biLoi(){
         Toast.makeText(this,"Lỗi kết nối", Toast.LENGTH_SHORT).show();
@@ -203,16 +229,15 @@ public void setUpGT(){
 
     public void AddOption(View view) {
         new AddOptionDialog(this).show();
-       // Intent i = new Intent(this,ThemMonAnActivity.class);
-        //startActivityForResult(i,ID_THEM_MON_AN);
-
     }
     public void moveToAddFood(){
+        Data.getData().idMonAnCanSua = -1;
             Intent i = new Intent(this,ThemMonAnActivity.class);
             startActivityForResult(i,ID_THEM_MON_AN);
 
     }
     public void themBan(){
+        thucHienCauLenh = 0;
         new AddTableDialog(this).show();
     }
 
@@ -220,6 +245,11 @@ public void setUpGT(){
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if ( requestCode == ID_THEM_MON_AN){
+            String s = checkDatainDataTable();
+            if (s.length()>0){
+                new GetDataFromTable( s,this).execute();
+            }
+        }else if(requestCode == ID_SUA_MON_AN){
             String s = checkDatainDataTable();
             if (s.length()>0){
                 new GetDataFromTable( s,this).execute();

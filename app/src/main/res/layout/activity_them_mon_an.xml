@@ -130,6 +130,7 @@
                     android:textSize="20sp" />
             </LinearLayout>
             <TextView
+                android:id="@+id/btnAdd"
                 android:onClick="themMonAn"
                 android:layout_marginTop="40dp"
                 android:layout_width="match_parent"

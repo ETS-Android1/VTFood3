@@ -16,4 +16,6 @@ public class Data {
     }
     public ArrayList<MonAn> arrMonAn = new ArrayList<>();
 
+// -1 là chuyển sang thêm món ăn ;; != -1 là sửa thông tin món ăn
+    public int idMonAnCanSua = -1;
 }

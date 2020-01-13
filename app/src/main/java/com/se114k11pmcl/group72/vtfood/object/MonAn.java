@@ -5,6 +5,6 @@ public class MonAn {
     public String namef;
     public String kind;
     public boolean deal; /// 0 : Specials ; 1 : Discounts
-    public float cost;
+    public String cost;
     public String picture;
 }

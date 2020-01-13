@@ -15,7 +15,7 @@ import java.util.List;
 
 public class DanhSachMonAnAdapter extends ArrayAdapter<MonAn> {
     Context myCt;
-    ArrayList<MonAn> myArr;
+    public ArrayList<MonAn> myArr;
     public DanhSachMonAnAdapter(Context context, int resource, List<MonAn> objects){
         super(context, resource, objects);
         this.myCt = context;

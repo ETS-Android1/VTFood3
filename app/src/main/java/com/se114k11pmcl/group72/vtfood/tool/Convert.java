@@ -20,7 +20,7 @@ public class Convert {
                 mn.idf = Integer.parseInt(oj.getString("idf"));
                 mn.namef = oj.getString("namef");
                 mn.kind = oj.getString("kind");
-                mn.cost = Float.parseFloat(oj.getString("cost"));
+                mn.cost = oj.getString("cost");
                 mn.picture = oj.getString("picture");
                 String deal = oj.getString("deal");
                 if ( deal.equals("1")){

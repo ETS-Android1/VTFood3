@@ -12,11 +12,13 @@ import com.se114k11pmcl.group72.vtfood.Data;
 import com.se114k11pmcl.group72.vtfood.R;
 import com.se114k11pmcl.group72.vtfood.api.ApiRunSQL;
 import com.se114k11pmcl.group72.vtfood.api.RunSQL;
+import com.se114k11pmcl.group72.vtfood.object.MonAn;
 
 public class ThemMonAnActivity extends AppCompatActivity implements ApiRunSQL {
 EditText edtFoodName, edtFoodKind, edtDonGia;
 TextView txvAdd_Discounts, txvAdd_Specials;
 boolean deal = true;
+MonAn monAn = null;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -26,7 +28,20 @@ boolean deal = true;
         setUp();
         setClick();
     }
-    private void init(){}
+    private void init(){
+        if ( Data.getData().idMonAnCanSua==-1){
+            ((TextView)findViewById(R.id.btnAdd)).setText("THÊM");
+            monAn = null;
+        }else{
+            ((TextView)findViewById(R.id.btnAdd)).setText("SỬA");
+            for ( MonAn k : Data.getData().arrMonAn){
+                if ( k.idf == Data.getData().idMonAnCanSua){
+                    monAn = k;
+                    return;
+                }
+            }
+        }
+    }
     private void anhXa(){
         edtFoodName = findViewById(R.id.edtFoodName);
         edtFoodKind = findViewById(R.id.edtFoodKind);
@@ -34,7 +49,29 @@ boolean deal = true;
         txvAdd_Discounts = findViewById(R.id.txvAdd_Discounts);
         txvAdd_Specials = findViewById(R.id.txvAdd_Specials);
     }
-    private void setUp(){}
+    private void setUp(){
+        if (monAn!=null){
+            edtFoodName.setText(monAn.namef);
+            edtFoodKind.setText(monAn.kind);
+            edtDonGia.setText(monAn.cost);
+            if(monAn.deal){
+                deal = true;
+                txvAdd_Discounts.setTextColor(ThemMonAnActivity.this.getResources().getColor(R.color.vang));
+                txvAdd_Discounts.setBackgroundColor(ThemMonAnActivity.this.getResources().getColor(R.color.den));
+                txvAdd_Specials.setTextColor(ThemMonAnActivity.this.getResources().getColor(R.color.den));
+                txvAdd_Specials.setBackgroundColor(ThemMonAnActivity.this.getResources().getColor(R.color.trang));
+            }else{
+                deal = false;
+                txvAdd_Specials.setTextColor(ThemMonAnActivity.this.getResources().getColor(R.color.vang));
+                txvAdd_Specials.setBackgroundColor(ThemMonAnActivity.this.getResources().getColor(R.color.den));
+                txvAdd_Discounts.setTextColor(ThemMonAnActivity.this.getResources().getColor(R.color.den));
+                txvAdd_Discounts.setBackgroundColor(ThemMonAnActivity.this.getResources().getColor(R.color.trang));
+            }
+        }
+    }
+
+
+
     private void setClick(){
         txvAdd_Discounts.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -92,17 +129,31 @@ boolean deal = true;
             deal="0";
         }
 
-        String sql = "INSERT INTO `food` (`idf`, `namef`, `kind`, `deal`, `cost`, `picture`) VALUES (NULL, '" +
-                ten +
-                "', '" +
-                loaiMonAn +
-                "', '" +
-                deal +
-                "', '" +
-                donGia +
-                "', '" +
-                "" +
-                "')";
+        String sql;
+        if(monAn == null) {
+            sql = "INSERT INTO `food` (`idf`, `namef`, `kind`, `deal`, `cost`, `picture`) VALUES (NULL, '" +
+                    ten +
+                    "', '" +
+                    loaiMonAn +
+                    "', '" +
+                    deal +
+                    "', '" +
+                    donGia +
+                    "', '" +
+                    "" +
+                    "')";
+        }else{
+            sql = "UPDATE `food` SET " +
+                    "`namef` = '" +
+                    ten +
+                    "', `kind` = '" +
+                    loaiMonAn +
+                    "', `deal` = '" +
+                    deal +
+                    "', `cost` = '" +
+                    donGia +
+                    "' WHERE `food`.`idf` = " + monAn.idf;
+        }
         new RunSQL(sql, this).execute();
     }
 
