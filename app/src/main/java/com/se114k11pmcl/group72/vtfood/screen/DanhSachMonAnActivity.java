@@ -20,6 +20,7 @@ import com.se114k11pmcl.group72.vtfood.adapter.DanhSachMonAnAdapter;
 import com.se114k11pmcl.group72.vtfood.api.ApiGetDataFromTableRun;
 import com.se114k11pmcl.group72.vtfood.api.GetDataFromTable;
 import com.se114k11pmcl.group72.vtfood.dialog.AddOptionDialog;
+import com.se114k11pmcl.group72.vtfood.dialog.AddTableDialog;
 import com.se114k11pmcl.group72.vtfood.object.MonAn;
 import com.se114k11pmcl.group72.vtfood.tool.Convert;
 
@@ -210,6 +211,9 @@ public void setUpGT(){
             Intent i = new Intent(this,ThemMonAnActivity.class);
             startActivityForResult(i,ID_THEM_MON_AN);
 
+    }
+    public void themBan(){
+        new AddTableDialog(this).show();
     }
 
     @Override

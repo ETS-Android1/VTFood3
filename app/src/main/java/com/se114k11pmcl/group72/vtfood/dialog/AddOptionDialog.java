@@ -19,10 +19,19 @@ public class AddOptionDialog extends Dialog {
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.dialog_them);
         TextView txvAddFood = findViewById(R.id.txvAddFood);
+        TextView txvAddTable = findViewById(R.id.txvAddTable);
         txvAddFood.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 ds.moveToAddFood();
+                dismiss();
+            }
+        });
+        txvAddTable.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ds.themBan();
+                dismiss();
             }
         });
     }
