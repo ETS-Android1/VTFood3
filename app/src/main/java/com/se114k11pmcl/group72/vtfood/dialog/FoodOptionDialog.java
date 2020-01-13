@@ -11,6 +11,7 @@ import androidx.annotation.NonNull;
 
 import com.se114k11pmcl.group72.vtfood.Data;
 import com.se114k11pmcl.group72.vtfood.R;
+import com.se114k11pmcl.group72.vtfood.api.RunSQL;
 import com.se114k11pmcl.group72.vtfood.object.MonAn;
 import com.se114k11pmcl.group72.vtfood.screen.DanhSachMonAnActivity;
 import com.se114k11pmcl.group72.vtfood.screen.ThemMonAnActivity;
@@ -28,6 +29,7 @@ public class FoodOptionDialog extends Dialog {
 
         TextView txvFoodName = findViewById(R.id.txvFoodName);
         TextView txvChangeFood = findViewById(R.id.txvChangeFood);
+        TextView txvDeleteFood = findViewById(R.id.txvDeleteFood);
 
         txvFoodName.setText(mn.namef);
         txvChangeFood.setOnClickListener(new View.OnClickListener() {
@@ -35,6 +37,14 @@ public class FoodOptionDialog extends Dialog {
             public void onClick(View v) {
                 Data.getData().idMonAnCanSua = mn.idf;
                 ds.startActivityForResult(new Intent(ds, ThemMonAnActivity.class), ds.ID_SUA_MON_AN);
+                dismiss();
+            }
+        });
+        txvDeleteFood.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String sql = "DELETE FROM `food` WHERE `food`.`idf` = " +mn.idf;
+                new RunSQL(sql,ds).execute();
                 dismiss();
             }
         });

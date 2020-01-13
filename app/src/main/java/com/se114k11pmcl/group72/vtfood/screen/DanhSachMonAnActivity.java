@@ -125,6 +125,7 @@ public class DanhSachMonAnActivity extends AppCompatActivity implements ApiGetDa
         lsvDSMonAn.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long id) {
+                thucHienCauLenh = 1;
                 new FoodOptionDialog(DanhSachMonAnActivity.this,danhSachMonAnAdapter.myArr.get(i)).show();
             }
         });
@@ -219,6 +220,13 @@ public void setUpGT(){
     public void ketThuc() {
         if ( thucHienCauLenh == 0 ) {
             Toast.makeText(this, "Thêm bàn thành công !", Toast.LENGTH_SHORT).show();
+        }else if (thucHienCauLenh == 1){
+            Toast.makeText(this, "Xóa món thành công !", Toast.LENGTH_SHORT).show();
+            Data.getData().arrMonAn.clear();
+            String s = checkDatainDataTable();
+            if (s.length()>0){
+                new GetDataFromTable( s,this).execute();
+            }
         }
     }
 
