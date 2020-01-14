@@ -210,6 +210,8 @@ public void setUpGT(){
 
     public static int ID_THEM_MON_AN = 99;
     public static int ID_SUA_MON_AN = 100;
+    public static int ID_DAT_MON_AN = 101;
+
 
     @Override
     public void batDauChayCauSQL() {
