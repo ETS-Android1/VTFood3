@@ -29,7 +29,7 @@ public class RunSQL extends AsyncTask<Void,Void,Void> {
                 .add("sql",sql)
                 .build();
         Request request = new Request.Builder()
-                .url("http://192.168.35.174/orderapp/runsql.php")
+                .url("http://172.16.1.106/orderapp/runsql.php")
                 .post(body)
                 .build();
         try{

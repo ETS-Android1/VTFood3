@@ -24,7 +24,7 @@ public class GetDataFromTable extends AsyncTask<Void,Void,Void> {
     protected Void doInBackground (Void... voids){
         OkHttpClient client = new OkHttpClient();
         Request request = new Request.Builder()
-                .url("http://192.168.35.174/orderapp/getDataTable.php?name="+tableName)
+                .url("http://172.16.1.106/orderapp/getDataTable.php?name="+tableName)
                 .build();
         try{
             Response response = client.newCall(request).execute();
