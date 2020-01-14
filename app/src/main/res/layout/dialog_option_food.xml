@@ -64,12 +64,12 @@
         android:layout_height="2dp"
         android:background="@color/den"/>
     <TextView
-        android:id="@+id/txvPayment"
+        android:id="@+id/txvHistory"
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:background="@color/trang"
         android:gravity="center_vertical"
-        android:text="Thanh toán"
+        android:text="Lịch sử đặt món"
         android:textStyle="bold"
         android:textColor="@color/den"
         android:textSize="20sp"

@@ -159,7 +159,7 @@ MonAn monAn = null;
 
     @Override
     public void batDauChayCauSQL() {
-        Warning("Bắt đầu chạy sql");
+        Warning("Bắt đầu xử lý");
     }
 
     @Override

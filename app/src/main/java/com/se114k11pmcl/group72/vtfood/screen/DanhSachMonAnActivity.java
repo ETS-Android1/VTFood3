@@ -192,7 +192,7 @@ public void setUpGT(){
 
     @Override
     public void batDauLay(){
-        Toast.makeText(this,"Bắt đầu lấy dữ liệu", Toast.LENGTH_SHORT).show();
+        //Toast.makeText(this,"Bắt đầu lấy dữ liệu", Toast.LENGTH_SHORT).show();
     }
 
     @Override
