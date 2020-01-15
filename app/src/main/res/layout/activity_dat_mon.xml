@@ -51,16 +51,21 @@
                 android:textColor="@color/den"
                 android:textSize="15sp" />
 
-            <EditText
-                android:id="@+id/edtNameTable"
+            <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
                 android:layout_marginTop="10dp"
+                android:padding="3dp"
                 android:background="@drawable/bg_edt"
-                android:gravity="center"
-                android:hint="Nhập bàn"
-                android:textColor="@color/den"
-                android:textSize="20sp" />
+                android:gravity="center">
+                <Spinner
+                    android:id="@+id/spnBanAn"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@drawable/bg_edt"
+                    >
+                </Spinner>
+            </RelativeLayout>
         </LinearLayout>
         <LinearLayout
             android:layout_width="match_parent"

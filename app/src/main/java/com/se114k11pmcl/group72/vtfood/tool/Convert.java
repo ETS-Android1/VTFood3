@@ -1,5 +1,6 @@
 package com.se114k11pmcl.group72.vtfood.tool;
 
+import com.se114k11pmcl.group72.vtfood.object.BanAn;
 import com.se114k11pmcl.group72.vtfood.object.MonAn;
 
 import org.json.JSONArray;
@@ -29,6 +30,25 @@ public class Convert {
                     mn.deal = false;
                 }
                 arr.add(mn);
+            }
+        }catch(JSONException e){
+
+        }
+        return arr;
+    }
+
+
+    public ArrayList<BanAn> jsonToBanAn(String data){
+        ArrayList<BanAn> arr = new ArrayList<>();
+        try{
+            JSONArray array = new JSONArray(data);
+            for (int i = 0; i < array.length(); i ++)
+            {
+                JSONObject oj = array.getJSONObject(i);
+                BanAn ban = new BanAn();
+                ban.idt = Integer.parseInt(oj.getString("idt"));
+                ban.namet = oj.getString("namet");
+                arr.add(ban);
             }
         }catch(JSONException e){
 

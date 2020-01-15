@@ -181,6 +181,8 @@ public void setUpGT(){
         String nameTable = "";
         if (Data.getData().arrMonAn.size()==0){
             return KEY.TABLE_MON_AN;
+        /*}else if (Data.getData().arrBanAn.size()==0){
+            return KEY.TABLE_BAN_AN;*/
         }
         return "";
     }
@@ -200,7 +202,11 @@ public void setUpGT(){
         if(tableName.equals(KEY.TABLE_MON_AN)){
             Data.getData().arrMonAn.clear();
             Data.getData().arrMonAn.addAll(convert.jsonToMonAn(data));
-        }String s = checkDatainDataTable();
+        }/*else if(tableName.equals(KEY.TABLE_BAN_AN)){
+            Data.getData().arrBanAn.clear();
+            Data.getData().arrBanAn.addAll(convert.jsonToBanAn(data));
+        }*/
+        String s = checkDatainDataTable();
         if (s.length()>0){
             new GetDataFromTable( s,this).execute();
         }else{
@@ -222,6 +228,11 @@ public void setUpGT(){
     public void ketThuc() {
         if ( thucHienCauLenh == 0 ) {
             Toast.makeText(this, "Thêm bàn thành công !", Toast.LENGTH_SHORT).show();
+            /*Data.getData().arrBanAn.clear();
+            String s = checkDatainDataTable();
+            if (s.length()>0){
+                new GetDataFromTable( s,this).execute();
+            }*/
         }else if (thucHienCauLenh == 1){
             Toast.makeText(this, "Xóa món thành công !", Toast.LENGTH_SHORT).show();
             Data.getData().arrMonAn.clear();
